@@ -1,6 +1,6 @@
 import axios from 'axios';
 import urls from "./env.js";
-import { useToast } from './hooks/use-toast.js';
+// import { useToast } from './hooks/use-toast.js';
 // import { Toaster } from './components/ui/toaster.jsx';
 
 
@@ -54,16 +54,16 @@ async function getPortfolio() {
 // }
 
 async function post(value) {
-  const { toast } = useToast()
+  // const { toast } = useToast()
   console.log(value);
   const currUrl = urls.BASE_URL + urls.EXTENSION + "/addStock";
   const res = await axios.post(currUrl, value);
   console.log(res);
   if(res.ok){
-    toast({
-      title: "Success",
-      message: "Stock added sucessfully",
-    })
+    // toast({
+    //   title: "Success",
+    //   message: "Stock added sucessfully",
+    // })
     return res;
   }
   

@@ -14,7 +14,8 @@ createRoot(document.getElementById('root')).render(
     {/* <SiteHeader /> */}
       <App />
       <Toaster />
-    <SiteFooter className="mt-auto"/>
+    
     </BrowserRouter >
+    <SiteFooter className="mt-auto"/>
   </StrictMode>,
 )
