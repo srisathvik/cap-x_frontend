@@ -4,8 +4,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { DayPicker } from "react-day-picker"
-import "./react-day-picker.css";
 
 import { Button } from "@/components/ui/button"
 import {
@@ -227,7 +225,7 @@ export function StockInput() {
                     }
                     initialFocus
                   /> */}
-                  <DayPicker
+                  <Calendar
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
