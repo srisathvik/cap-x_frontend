@@ -1,8 +1,16 @@
-const key = "3TH7ZHP5JXEXCRLD";
-const key2 = "GO95YEJ4E3LMJIQB"
-const currPriceURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="
+const KEY = "3TH7ZHP5JXEXCRLD";
+const KEY_2 = "GO95YEJ4E3LMJIQB";
+const CURRENT_PRICE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=";
+const BASE_URL = 'http://localhost:8087';
+const EXTENSION = '/api/tracker';
+const USER_EMAIL = 'johndoe@gmail.com';
+const USER_ID = 1;
 export default {
-    key,
-    key2,
-    currPriceURL
+    KEY,
+    KEY_2,
+    CURRENT_PRICE_URL,
+    BASE_URL,
+    EXTENSION,
+    USER_EMAIL,
+    USER_ID,
 };

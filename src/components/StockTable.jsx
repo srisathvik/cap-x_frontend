@@ -27,7 +27,7 @@ import { useNavigate } from "react-router-dom";
       // console.log(stock);
     }
     function handleDelete(stock){
-      const res = deleteStock(stock).then(alert);
+      const res = deleteStock(stock);
       // console.log(stock);
     }
     return (
@@ -46,7 +46,7 @@ import { useNavigate } from "react-router-dom";
         </TableHeader>
         <TableBody>
           {stocks.map((stock) => (
-            <TableRow key={stock.id} onMouseEnter={e => {
+            <TableRow key={stock.ticker} onMouseEnter={e => {
               setHovered(stock.id);
           }}
           onMouseLeave={e => {
@@ -54,15 +54,15 @@ import { useNavigate } from "react-router-dom";
           }}>
            {/* {let p = (stock.quantity * stock.current_price) - (stock.quantity * stock.buying_price)} */}
               {/* <div > */}
-                <TableCell className="font-medium">{stock.stock_name}</TableCell>
+                <TableCell className="font-medium">{stock.stockName}</TableCell>
                 {/* <TableCell className="font-medium">{stock.ticker}</TableCell> */}
                 <TableCell className="text-center">{stock.quantity}</TableCell>
-                <TableCell className="text-center">{stock.buying_price * stock.quantity}</TableCell>
-                <TableCell className="text-center">{(stock.current_price) * stock.quantity}</TableCell>
-                <TableCell className={`text-center ${stock.p_and_l   > 0? "text-green-500" : "text-red-500"}`}>
+                <TableCell className="text-center">{stock.investedValue * stock.quantity}</TableCell>
+                <TableCell className="text-center">{stock.currentValue * stock.quantity}</TableCell>
+                <TableCell className={`text-center ${(stock.currentValue * stock.quantity) - (stock.investedValue * stock.quantity)   > 0? "text-green-500" : "text-red-500"}`}>
                   <div>
-                    <p>{stock.p_and_l}</p>
-                    <p>({(100 * stock.p_and_l / stock.buying_price).toFixed(2)} % )</p>
+                    <p>{(stock.currentValue * stock.quantity) - (stock.investedValue * stock.quantity)}</p>
+                    <p>({(((stock.currentValue - stock.investedValue) / stock.investedValue) * 100) .toFixed(2)} % )</p>
                   </div>  
                 </TableCell>
                 <TableCell className="text-right">

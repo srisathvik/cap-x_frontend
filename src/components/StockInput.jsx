@@ -55,15 +55,17 @@ import {
 
 
 const formSchema = z.object({
-  stock_name: z.string().min(2, {
-    message: "stock_name must be at least 2 characters."
+  stockName: z.string().min(2, {
+    message: "stockName must be at least 2 characters."
   }),
   ticker: z.string().min(2, {
     message: "ticker must be at least 2 characters."
   }),
   quantity: z.coerce.number().min(1, {message: "The quantity must be atleast 1"}),
-  buying_price: z.coerce.number().min(1, {message: "The Buying Price must be atleast 1"}),
-  buying_date: z.date({
+
+  investedValue: z.coerce.number().min(1, {message: "The Buying Price must be atleast 1"}),
+
+  purchaseDate: z.date({
     required_error: "Buying Date is required",
   }),
 })
@@ -76,11 +78,11 @@ export function StockInput() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      stock_name: modifyStock?.stock_name || "",
+      stockName: modifyStock?.stockName || "",
       ticker: modifyStock?.ticker || "",
       quantity:modifyStock?.quantity || "",
-      buying_price: modifyStock?.buying_price || "",
-      buying_date: modifyStock? new Date(modifyStock.buying_date) : "",
+      investedValue: modifyStock?.investedValue || "",
+      purchaseDate: modifyStock? new Date(modifyStock.purchaseDate) : "",
       
     }
   })
@@ -89,25 +91,23 @@ export function StockInput() {
   function onSubmit(values) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    values.buying_date = `${values.buying_date}`;
-    // console.log(typeof(values.buying_date));
-    // values.JSON.stringify(values.buying_date);
 
-    values.p_and_l = 200;
-    // values.id = Math.floor(Math.random() * (100 - 3 + 1) + 3);
-    values.currentPrice = 400;
+    values.purchaseDate = values.purchaseDate.toISOString().split('T')[0];
+    values.userId = 1;
     console.log(values);
+
     if(modifyStock){
         //make appi call to edit the stock
         let newStock = {...modifyStock, ...values};
         updateStock(newStock);
         setModifyStock(undefined);
     }
+
     else{
         //make api call to add the stock.
         addStock(values);
     }
-    // console.log(values)
+
     form.reset();
     navigate("../")
   }
@@ -117,13 +117,13 @@ export function StockInput() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="stock_name"
+          name="stockName"
           render={({ field }) => (
             <>
                 <FormItem>
                     <FormLabel>Stock Name</FormLabel>
                     <FormControl>
-                        <Input placeholder="Enter Your buying stock Name" {...field} />
+                        <Input placeholder="Enter Your buying stock Name" {...field} disabled={modifyStock !== undefined}/>
                     </FormControl>
                     {/* <FormDescription>
                         This is your public display name.
@@ -142,7 +142,7 @@ export function StockInput() {
                 <FormItem>
                     <FormLabel>Stock Ticker</FormLabel>
                     <FormControl>
-                        <Input placeholder="Enter Your stock ticker" {...field} />
+                        <Input placeholder="Enter Your stock ticker" {...field} disabled={modifyStock !== undefined}/>
                     </FormControl>
                     {/* <FormDescription>
                         This is your public display name.
@@ -174,13 +174,13 @@ export function StockInput() {
         />
         <FormField
           control={form.control}
-          name="buying_price"
+          name="investedValue"
           render={({ field }) => (
             <>
                 <FormItem>
                     <FormLabel>Buying Price</FormLabel>
                     <FormControl>
-                        <Input placeholder="Enter Your buying_price Amount" {...field} />
+                        <Input placeholder="Enter Your invested Value Amount" {...field} />
                     </FormControl>
                     {/* <FormDescription>
                         This is your public display name.
@@ -193,7 +193,7 @@ export function StockInput() {
         />
         <FormField
           control={form.control}
-          name="buying_date"
+          name="purchaseDate"
           render={({ field }) => (
             <>
                 <FormItem className="flex flex-col">
