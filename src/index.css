@@ -4,7 +4,16 @@
 
 /* ... */
 
-:root {
+html {
+  font-size: 10px;
+  @screen tablet {
+    font-size: 10px;
+  }
+  @screen laptop {
+    font-size: 16px;
+  }
+}
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -31,15 +40,15 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  /* place-items: center; */
+/* min-width: 320px;
   min-height: 100vh;
-}
+} */
 
-h1 {
-  font-size: 3.2em;
+/* h1 { */
+/* font-size: 3.2em;
   line-height: 1.1;
-}
+} */
 
 button {
   border-radius: 8px;
@@ -48,7 +57,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  /* background-color: #1a1a1a; */
+  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -57,8 +66,8 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+outline: 4px auto -webkit-focus-ring-color;
+ }
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -129,11 +138,41 @@ button:focus-visible {
   }
 }
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
-}
+} */
+
+/* @media (max-width: 768px) {
+  /* Modify styles for mobile */
+/* body {
+    font-size: 16px;
+  } */
+
+/* .container {
+    width: 100%;
+    padding: 10px;
+  } */
+
+/* .header {
+    text-align: center;
+    font-size: 1.5em;
+  } */
+
+/* Any other styles that need adjusting for mobile */
+/* } */
+
+/* Styles for tablet screens (max-width: 1024px) */
+/* @media (max-width: 1024px) {
+  .container {
+    width: 80%;
+  }
+
+  .header {
+    font-size: 2em;
+  }
+} */

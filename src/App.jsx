@@ -3,8 +3,9 @@ import { StockInput } from './components/StockInput'
 import { Portfolio } from './components/Portfolio'
 import { Route, Routes } from 'react-router-dom'
 import { useState, createContext, useEffect } from 'react'
-import apis from './apiServices'
+import apis from './apis/apiService'
 import { useToast } from './hooks/use-toast.js';
+import { StockApi } from './apis/StockAPI'
 // import { title } from 'process'
 
 // import { resolve } from 'path'
@@ -28,56 +29,44 @@ function App() {
   const { toast } = useToast();
   // const[shouldRender, setShouldRender] = useState(true);
   useEffect(()=>{
-    getData();
-    // apis.loadStocks();
+    getData("stocks");
+    getData("portfolio");
   }, []);
+// console.log(stocks);
 
-
-  async function getData() {
-    console.log('requested')
-    const stocksRes = await apis.getStocks();
-    // const getOverview  = await apis.getPortfolio();
-    getPortfolio();
-
-    // const currPrice = await apis.currentPrice("IBM");
-    // toast({
-    //   message: stocksRes.message,
-    // })
-    setStocks(stocksRes);
+  async function getData(name) {
+    const res = await apis.get(name);
+    if(name === "stocks"){
+      setStocks(res);
+    }
+    else if(name === "portfolio"){
+      setOverViewData(res);
+    }
     
   }
   
-  async function getPortfolio() {
-    const getOverview  = await apis.getPortfolio();
-    setOverViewData(getOverview);
-    return getOverview; 
-  }
 
   async function handleAddStocks(stock){
-    const res =  await apis.post(stock);
-    console.log(res);
-    // if(res.status === 200){
-    //   toast({
-    //     title: Success,
-    //       message: "Stock added sucessfully",
-    //     })
-    // }
-    // again fetching the updated data.
-    getData();
+    const res =  await apis.add(stock);
+    getData("portfolio");
+    setStocks([res, ...stocks]);
   }
-  async function handleUpdateStock(modifyStock){
-    await apis.put(modifyStock);
-    getData();
-    // setStocks([...updatedStocks]);
+
+  async function handleUpdateStock(stock){
+    const res = await apis.update(stock);
+    getData("stocks");
+    getData("portfolio");
   }
   async function handleStockDelete(stock){
     let updatedStocks = stocks.filter((currStock) => currStock.ticker !== stock.ticker);
-    console.log(updatedStocks);
+    // console.log(updatedStocks);
+    // setStocks(updatedStocks);
+    const res= await apis.remove(stock.ticker);
     setStocks(updatedStocks);
-    const res= await apis.delete(stock.ticker);
-    getPortfolio();
+    getData("portfolio");
     // getData();
   }
+
   const ctxValue = {
     stocks,
     overViewData,
@@ -87,13 +76,18 @@ function App() {
     updateStock: handleUpdateStock,
     deleteStock: handleStockDelete,
   }
+
   return (
     <myContext.Provider value={ctxValue}>
-      <div>
-        <Routes>
-            <Route path='/' element={ <Portfolio /> } />
-            <Route path='/addstock' element={ <StockInput /> } />
-          </Routes>
+      <div className='flex w-screen justify-center'>
+        
+          {/* <div className='outer'> */}
+            <Routes>
+              <Route path='/' element={ <Portfolio /> } />
+              <Route path='/addstock' element={ <StockInput /> } />
+            </Routes>
+          {/* </div> */}
+          
         {/* <StockInput prev_stock={temp}/> */}
       </div>
     </myContext.Provider>

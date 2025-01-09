@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import { myContext } from "@/App"
+import { Link } from "react-router-dom"
+
 
 
 
@@ -73,6 +75,7 @@ export function StockInput() {
   // ...
   const {modifyStock, addStock, setModifyStock, updateStock} = useContext(myContext);
   const navigate = useNavigate();
+  console.log(modifyStock);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -111,144 +114,148 @@ export function StockInput() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="stockName"
-          render={({ field }) => (
-            <>
-                <FormItem>
-                    <FormLabel>Stock Name</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Enter Your buying stock Name" {...field} disabled={modifyStock !== undefined}/>
-                    </FormControl>
-                    {/* <FormDescription>
-                        This is your public display name.
-                    </FormDescription> */}
-                    <FormMessage />
+    <div className="flex flex-col">
+        <Link className="py-5" to="../">{"< Back"}</Link>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="stockName"
+              render={({ field }) => (
+                <>
+                    <FormItem>
+                        <FormLabel>Stock Name</FormLabel>
+                        <FormControl>
+                            <Input placeholder="Enter Your buying stock Name" {...field} disabled={modifyStock !== undefined}/>
+                        </FormControl>
+                        {/* <FormDescription>
+                            This is your public display name.
+                        </FormDescription> */}
+                        <FormMessage />
+                    </FormItem>
+                </>
+                
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="ticker"
+              render={({ field }) => (
+                <>
+                    <FormItem>
+                        <FormLabel>Stock Ticker</FormLabel>
+                        <FormControl>
+                            <Input placeholder="Enter Your stock ticker" {...field} disabled={modifyStock !== undefined}/>
+                        </FormControl>
+                        {/* <FormDescription>
+                            This is your public display name.
+                        </FormDescription> */}
+                        <FormMessage />
+                    </FormItem>
+                </>
+                
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="quantity"
+              render={({ field }) => (
+                <>
+                    <FormItem>
+                        <FormLabel>Stock quantity</FormLabel>
+                        <FormControl>
+                            <Input placeholder="Enter Your buying stock quantity" {...field} />
+                        </FormControl>
+                        {/* <FormDescription>
+                            This is your public display name.
+                        </FormDescription> */}
+                        <FormMessage />
+                    </FormItem>
+                </>
+                
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="investedValue"
+              render={({ field }) => (
+                <>
+                    <FormItem>
+                        <FormLabel>Buying Price</FormLabel>
+                        <FormControl>
+                            <Input placeholder="Enter Your invested Value Amount" {...field} />
+                        </FormControl>
+                        {/* <FormDescription>
+                            This is your public display name.
+                        </FormDescription> */}
+                        <FormMessage />
+                    </FormItem>
+                </>
+                
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="purchaseDate"
+              render={({ field }) => (
+                <>
+                    <FormItem className="flex flex-col">
+                  <FormLabel>Date of buying date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-100" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      {/* <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={date =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      /> */}
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        className="bg-white"
+                        // footer={
+                        //   selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."
+                        // }
+                        disabled={date =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  
+                  <FormMessage />
                 </FormItem>
-            </>
-            
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="ticker"
-          render={({ field }) => (
-            <>
-                <FormItem>
-                    <FormLabel>Stock Ticker</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Enter Your stock ticker" {...field} disabled={modifyStock !== undefined}/>
-                    </FormControl>
-                    {/* <FormDescription>
-                        This is your public display name.
-                    </FormDescription> */}
-                    <FormMessage />
-                </FormItem>
-            </>
-            
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="quantity"
-          render={({ field }) => (
-            <>
-                <FormItem>
-                    <FormLabel>Stock quantity</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Enter Your buying stock quantity" {...field} />
-                    </FormControl>
-                    {/* <FormDescription>
-                        This is your public display name.
-                    </FormDescription> */}
-                    <FormMessage />
-                </FormItem>
-            </>
-            
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="investedValue"
-          render={({ field }) => (
-            <>
-                <FormItem>
-                    <FormLabel>Buying Price</FormLabel>
-                    <FormControl>
-                        <Input placeholder="Enter Your invested Value Amount" {...field} />
-                    </FormControl>
-                    {/* <FormDescription>
-                        This is your public display name.
-                    </FormDescription> */}
-                    <FormMessage />
-                </FormItem>
-            </>
-            
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="purchaseDate"
-          render={({ field }) => (
-            <>
-                <FormItem className="flex flex-col">
-              <FormLabel>Date of buying date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-100" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  {/* <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={date =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  /> */}
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    className="bg-white"
-                    // footer={
-                    //   selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."
-                    // }
-                    disabled={date =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              
-              <FormMessage />
-            </FormItem>
-            </>
-            
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+                </>
+                
+              )}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </Form>
+    </div>
+    
   )
 }

@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card"
+import { ToolTip } from "./Tooltip";
 
 export function DataCard({ className, title, data,  ...props }) {
   let bgColor = "";
@@ -24,10 +25,12 @@ export function DataCard({ className, title, data,  ...props }) {
       <CardContent className="grid gap-4">
         
         <div>
-              <div className="space-y-1">
-                <p className={`text-sm font-medium leading-none ${bgColor}`}>
-                ₹ {data}
-                </p>
+              <div className="space-x-1 flex">
+                <div className={`text-sm font-medium leading-none ${bgColor}`}>
+                $ {data}
+                </div>
+                {data === 0 && <ToolTip message={"Unable to fetch current stock prices"} />}
+              
               </div>
         </div>
       </CardContent>
