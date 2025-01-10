@@ -60,6 +60,7 @@ function App() {
   async function handleStockDelete(stock){
     let updatedStocks = stocks.filter((currStock) => currStock.ticker !== stock.ticker);
   
+    setIsLoading(true);
     const res= await apis.remove(stock.ticker);
     setIsLoading(false);
     setStocks(updatedStocks);
