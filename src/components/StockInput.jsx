@@ -116,7 +116,7 @@ export function StockInput() {
 
   return (
     <div className="flex flex-col">
-        <Link className="py-5" to="../">{"< Back"}</Link>
+        <Link className="py-5" to="../" onClick={()=>{setModifyStock(undefined)}}>{"< Back"}</Link>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
