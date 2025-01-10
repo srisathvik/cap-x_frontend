@@ -1,142 +1,33 @@
+import { Link } from "react-router-dom"
+export default function SiteHeader(){
+    return(
+        <header class="pb-6 bg-white lg:pb-0">
+            <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                {/* <!-- lg+ --> */}
+                <nav class="flex items-center justify-between h-16 lg:h-20">
+                    <div class="flex-shrink-0">
+                        <Link to="../">
+                            <img class="w-auto h-8 lg:h-10" src="https://capx.live/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.839a2952.png&w=128&q=75" alt="" />
+                        </Link>
+                    </div>
 
-// import * as React from 'react';
-// import { alpha, styled } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
-// import AppBar from '@mui/material/AppBar';
-// import Toolbar from '@mui/material/Toolbar';
-// import Button from '@mui/material/Button';
-// import IconButton from '@mui/material/IconButton';
-// import Container from '@mui/material/Container';
-// import Divider from '@mui/material/Divider';
-// import MenuItem from '@mui/material/MenuItem';
-// import Drawer from '@mui/material/Drawer';
-// import MenuIcon from '@mui/icons-material/Menu';
-// import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-// import Sitemark from './SitemarkIcon';
-// import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+                    {/* <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
 
-// const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-//   display: 'flex',
-//   alignItems: 'center',
-//   justifyContent: 'space-between',
-//   flexShrink: 0,
-//   borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
-//   backdropFilter: 'blur(24px)',
-//   border: '1px solid',
-//   borderColor: (theme.vars || theme).palette.divider,
-//   backgroundColor: theme.vars
-//     ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.4)`
-//     : alpha(theme.palette.background.default, 0.4),
-//   boxShadow: (theme.vars || theme).shadows[1],
-//   padding: '8px 12px',
-// }));
+                        <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+                        </svg>
 
-// export default function AppAppBar() {
-//   const [open, setOpen] = React.useState(false);
 
-//   const toggleDrawer = (newOpen) => () => {
-//     setOpen(newOpen);
-//   };
+                        <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button> */}
+                    <a href="#" title="" class="items-center justify-center hidden px-4 py-3 ml-10 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md lg:inline-flex hover:bg-blue-700 focus:bg-blue-700" role="button"> Get started now </a>
+                </nav>
 
-//   return (
-//     <AppBar
-//       position="fixed"
-//       enableColorOnDark
-//       sx={{
-//         boxShadow: 0,
-//         bgcolor: 'transparent',
-//         backgroundImage: 'none',
-//         mt: 'calc(var(--template-frame-height, 0px) + 28px)',
-//       }}
-//     >
-//       <Container maxWidth="lg">
-//         <StyledToolbar variant="dense" disableGutters>
-//           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-//             <Sitemark />
-//             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-//               <Button variant="text" color="info" size="small">
-//                 Features
-//               </Button>
-//               <Button variant="text" color="info" size="small">
-//                 Testimonials
-//               </Button>
-//               <Button variant="text" color="info" size="small">
-//                 Highlights
-//               </Button>
-//               <Button variant="text" color="info" size="small">
-//                 Pricing
-//               </Button>
-//               <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-//                 FAQ
-//               </Button>
-//               <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-//                 Blog
-//               </Button>
-//             </Box>
-//           </Box>
-//           <Box
-//             sx={{
-//               display: { xs: 'none', md: 'flex' },
-//               gap: 1,
-//               alignItems: 'center',
-//             }}
-//           >
-//             <Button color="primary" variant="text" size="small">
-//               Sign in
-//             </Button>
-//             <Button color="primary" variant="contained" size="small">
-//               Sign up
-//             </Button>
-//             <ColorModeIconDropdown />
-//           </Box>
-//           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
-//             <ColorModeIconDropdown size="medium" />
-//             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
-//               <MenuIcon />
-//             </IconButton>
-//             <Drawer
-//               anchor="top"
-//               open={open}
-//               onClose={toggleDrawer(false)}
-//               PaperProps={{
-//                 sx: {
-//                   top: 'var(--template-frame-height, 0px)',
-//                 },
-//               }}
-//             >
-//               <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
-//                 <Box
-//                   sx={{
-//                     display: 'flex',
-//                     justifyContent: 'flex-end',
-//                   }}
-//                 >
-//                   <IconButton onClick={toggleDrawer(false)}>
-//                     <CloseRoundedIcon />
-//                   </IconButton>
-//                 </Box>
-//                 <MenuItem>Features</MenuItem>
-//                 <MenuItem>Testimonials</MenuItem>
-//                 <MenuItem>Highlights</MenuItem>
-//                 <MenuItem>Pricing</MenuItem>
-//                 <MenuItem>FAQ</MenuItem>
-//                 <MenuItem>Blog</MenuItem>
-//                 <Divider sx={{ my: 3 }} />
-//                 <MenuItem>
-//                   <Button color="primary" variant="contained" fullWidth>
-//                     Sign up
-//                   </Button>
-//                 </MenuItem>
-//                 <MenuItem>
-//                   <Button color="primary" variant="outlined" fullWidth>
-//                     Sign in
-//                   </Button>
-//                 </MenuItem>
-//               </Box>
-//             </Drawer>
-//           </Box>
-//         </StyledToolbar>
-//       </Container>
-//     </AppBar>
-//   );
-// }
+                
+            </div>
+        </header>
+
+    )
+}
