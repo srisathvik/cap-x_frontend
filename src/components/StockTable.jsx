@@ -12,6 +12,7 @@ export default function StockTable({}) {
     const{stocks, setModifyStock, deleteStock} = useContext(myContext);
     const [searhchableData, setSearchableData] = useState("");
     const [timer, setTimer] = useState(null);
+    const [touch, setTouch] = useState(undefined);
     
     const navigation = useNavigate();
 
@@ -69,6 +70,12 @@ export default function StockTable({}) {
                         }}
                         onMouseLeave={e => {
                             setHovered(undefined);
+                        }}
+                        onTouchStart={e=>{
+                          setTouch(stock.ticker);
+                        }}
+                        onTouchEnd={e=>{
+                          setTouch(undefined)
                         }}>
                         
                                 <TableCell className="font-medium">{stock.stockName}</TableCell>
@@ -87,7 +94,7 @@ export default function StockTable({}) {
                                 </div>  
                                 </TableCell>
                                 <TableCell className="text-right">
-                                <div className="flex p-px" style={{visibility: hovered === stock.ticker ? "visible" : "hidden"}} >
+                                <div className="flex p-px" style={{visibility: (hovered === stock.ticker || touch === stock.ticker) ? "visible" : "hidden"}} >
                                     <div className="p-1" onClick={() =>{handleEdit(stock)}}><Pencil className="w-4 h-4" /></div>
                                     <div className="p-1" onClick={()=>{handleDelete(stock)}}><Trash2 className="w-4 h-4" /></div>
                                 </div>
