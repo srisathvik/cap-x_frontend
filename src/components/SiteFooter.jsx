@@ -6,9 +6,6 @@ export default function SiteFooter() {
     <MDBFooter bgColor='light' className='text-center text-lg-left'>
       <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
         &copy; {new Date().getFullYear()} Copyright:{' Sathvik'}
-        {/* <p className='text-dark'>
-          Sathvik
-        </p> */}
       </div>
     </MDBFooter>
   );

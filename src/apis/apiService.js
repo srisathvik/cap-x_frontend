@@ -18,6 +18,7 @@ function displayErrorMessage(message){
 async function get(type){
     try{
         const res = await apiClient.get(`/${type}?email=` + urls.USER_EMAIL)
+        console.log(res);
         if(res && res.data){
             return res.data;
         }
@@ -55,6 +56,7 @@ async function update(stock) {
 
 async function add(stock){
     try{
+        console.log(stock);
         const res = await apiClient.post("addStock", stock);
         console.log(res);
         if(res && res.data){

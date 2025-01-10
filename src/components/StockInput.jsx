@@ -87,6 +87,7 @@ export function StockInput() {
       
     }
   })
+  console.log(form.purchaseDate);
 
   // 2. Define a submit handler.
   function onSubmit(values) {

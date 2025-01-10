@@ -5,11 +5,6 @@ import { Route, Routes } from 'react-router-dom'
 import { useState, createContext, useEffect } from 'react'
 import apis from './apis/apiService'
 import { useToast } from './hooks/use-toast.js';
-import { StockApi } from './apis/StockAPI'
-// import { title } from 'process'
-
-// import { resolve } from 'path'
-// const temp = {stockName: 'asdf', ticker: 'asdf', quantity: 1, price: 1};
 
 export const myContext = createContext({
   stocks:[],
@@ -26,16 +21,17 @@ function App() {
   const[stocks, setStocks] = useState([]);
   const[overViewData ,setOverViewData] = useState();
   const[modifyStock, setModifyStock] = useState(undefined);
+  const[isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
-  // const[shouldRender, setShouldRender] = useState(true);
   useEffect(()=>{
     getData("stocks");
     getData("portfolio");
   }, []);
-// console.log(stocks);
 
   async function getData(name) {
+    setIsLoading(true);
     const res = await apis.get(name);
+    setIsLoading(false);
     if(name === "stocks"){
       setStocks(res);
     }
@@ -47,21 +43,25 @@ function App() {
   
 
   async function handleAddStocks(stock){
+    setIsLoading(true);
     const res =  await apis.add(stock);
+    setIsLoading(false);
     getData("portfolio");
     setStocks([res, ...stocks]);
   }
 
   async function handleUpdateStock(stock){
+    setIsLoading(true);
     const res = await apis.update(stock);
+    setIsLoading(false);
     getData("stocks");
     getData("portfolio");
   }
   async function handleStockDelete(stock){
     let updatedStocks = stocks.filter((currStock) => currStock.ticker !== stock.ticker);
-    // console.log(updatedStocks);
-    // setStocks(updatedStocks);
+  
     const res= await apis.remove(stock.ticker);
+    setIsLoading(false);
     setStocks(updatedStocks);
     getData("portfolio");
     // getData();
@@ -76,7 +76,20 @@ function App() {
     updateStock: handleUpdateStock,
     deleteStock: handleStockDelete,
   }
-
+  if(isLoading){
+    return(
+      <div className='flex justify-center items-center w-screen h-screen'>
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status">
+          <span
+            className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+          >Loading...</span>
+        </div>
+      </div>
+      
+    )
+  }
   return (
     <myContext.Provider value={ctxValue}>
       <div className='flex w-screen justify-center'>

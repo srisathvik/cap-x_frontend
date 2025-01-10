@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom"
-import { TableDemo } from "./StockTable"
+import StockTable from "./StockTable"
 import {Overview } from "./Overview"
 import { Button } from "./ui/button"
-import SearchableTable from "./SearchableTable"
 export function Portfolio(){
     return(
         <div className="flex flex-col justify-center">
@@ -14,8 +13,7 @@ export function Portfolio(){
            
             </div> 
             <div className="">
-                {/* <TableDemo /> */}
-                <SearchableTable />
+                <StockTable />
             </div>
             
         </div>
